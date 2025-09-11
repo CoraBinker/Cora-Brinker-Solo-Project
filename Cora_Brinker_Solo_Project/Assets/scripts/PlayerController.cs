@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 10f;
     float verticalMove;
     float horizontalMove;
-    public float Xsensitivity=.75f;
-    public float ysensitivity=.75f;
+    public float Xsensitivity=.30f;
+    public float ysensitivity = .30f;
     public float cameraRotationLimit = 90.0f;
 
     public void Start()
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         //CAmera Rotation system
 
         cameraRotation.x += lookVector.ReadValue<Vector2>().x * Xsensitivity;
-        cameraRotation.x += lookVector.ReadValue<Vector2>().y * ysensitivity;
+        cameraRotation.y += lookVector.ReadValue<Vector2>().y * ysensitivity;
 
         cameraRotation.y = Mathf.Clamp(cameraRotation.y, -cameraRotationLimit, cameraRotationLimit);
 
