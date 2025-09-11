@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     Vector2 cameraRotation;
     InputAction lookVector;
     Camera playerCam;
+    Transform camHolder;
     Rigidbody rb;
 
 
@@ -24,14 +25,14 @@ public class PlayerController : MonoBehaviour
         playerCam = Camera.main;
         lookVector = GetComponent<PlayerInput>().currentActionMap.FindAction("Look");
         cameraRotation = Vector2.zero;
-
+        camHolder = transform.GetChild(0);
     }
 
     // Update is called once per frame
     void Update()
     {
         //CAmera Rotation system
-
+        playerCam.transform.position = camHolder.position;
         cameraRotation.x += lookVector.ReadValue<Vector2>().x * Xsensitivity;
         cameraRotation.y += lookVector.ReadValue<Vector2>().y * ysensitivity;
 
