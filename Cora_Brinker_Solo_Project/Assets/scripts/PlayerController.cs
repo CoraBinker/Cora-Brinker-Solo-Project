@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerController : MonoBehaviour
 
 {
     Vector2 cameraRotation;
     Vector3 cameraoffset;
     InputAction lookVector;
-    Camera playerCam;
+    Transform playerCam;
     Rigidbody rb;
    
 
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
       
         cameraoffset = new Vector3(0, .5f, .5f);
         rb=GetComponent<Rigidbody>();
-        playerCam = Camera.main;
+        playerCam = transform.GetChild(0);
         lookVector = GetComponent<PlayerInput>().currentActionMap.FindAction("Look");
         cameraRotation = Vector2.zero;
 
@@ -47,14 +48,15 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         //CAmera Rotation system
-        playerCam.transform.position = transform.position + cameraoffset;
+
+        //playerCam.transform.position = transform.position + cameraoffset;
         cameraRotation.x += lookVector.ReadValue<Vector2>().x * Xsensitivity;
         cameraRotation.y += lookVector.ReadValue<Vector2>().y * ysensitivity;
 
         cameraRotation.y = Mathf.Clamp(cameraRotation.y, -cameraRotationLimit, cameraRotationLimit);
 
         transform.localRotation = Quaternion.AngleAxis(cameraRotation.x, Vector3.up);
-        playerCam.transform.rotation = Quaternion.Euler(-cameraRotation.y, cameraRotation.x, 0);
+        playerCam.rotation = Quaternion.Euler(-cameraRotation.y, cameraRotation.x, 0);
 
         //Movement System
 
@@ -77,7 +79,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag==DeathZone);
+        if (other.tag=="deathZone")
            health = 0;
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
+    
+   
 }
