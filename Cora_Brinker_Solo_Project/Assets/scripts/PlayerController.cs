@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     InputAction lookVector;
     Camera playerCam;
     Rigidbody rb;
+   
 
 
     public float speed = 5f;
@@ -18,20 +20,32 @@ public class PlayerController : MonoBehaviour
     public float Xsensitivity=.30f;
     public float ysensitivity = .30f;
     public float cameraRotationLimit = 90.0f;
+    public int health=10;
+    public int maxHealth = 15;
+        
 
     public void Start()
     {
+      
         cameraoffset = new Vector3(0, .5f, .5f);
         rb=GetComponent<Rigidbody>();
         playerCam = Camera.main;
         lookVector = GetComponent<PlayerInput>().currentActionMap.FindAction("Look");
         cameraRotation = Vector2.zero;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
       
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
+
+        // Health and Respawning
+        if (health <= 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         //CAmera Rotation system
         playerCam.transform.position = transform.position + cameraoffset;
         cameraRotation.x += lookVector.ReadValue<Vector2>().x * Xsensitivity;
@@ -49,6 +63,7 @@ public class PlayerController : MonoBehaviour
         temp.z = horizontalMove * speed;
         rb.linearVelocity = (temp.x * transform.forward) + (temp.y * transform.up) + (temp.z * transform.right);
 
+
        
     }
 
@@ -58,5 +73,11 @@ public class PlayerController : MonoBehaviour
 
         verticalMove = inputAxis.y;
         horizontalMove = inputAxis.x;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag==DeathZone);
+           health = 0;
     }
 }
