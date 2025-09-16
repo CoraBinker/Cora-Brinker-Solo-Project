@@ -9,37 +9,38 @@ public class PlayerController : MonoBehaviour
     Vector2 cameraRotation;
     Vector3 cameraoffset;
     InputAction lookVector;
-    Transform playerCam;
+    Camera playerCam;
     Rigidbody rb;
-   
+    Ray ray;
+    
+
 
 
     public float speed = 5f;
-    public float jumpHeight = 10f;
+    public float jumpHeight = 300f;
+    public float groundDetectLength = 5f;
     float verticalMove;
     float horizontalMove;
-    public float Xsensitivity=.30f;
-    public float ysensitivity = .30f;
-    public float cameraRotationLimit = 90.0f;
-    public int health=10;
+    public int health = 10;
     public int maxHealth = 15;
-        
+
 
     public void Start()
     {
-      
+
         cameraoffset = new Vector3(0, .5f, .5f);
-        rb=GetComponent<Rigidbody>();
-        playerCam = transform.GetChild(0);
+        rb = GetComponent<Rigidbody>();
+        playerCam = Camera.main;
         lookVector = GetComponent<PlayerInput>().currentActionMap.FindAction("Look");
         cameraRotation = Vector2.zero;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-      
+
+        Ray ray = new Ray(transform.position, transform.forward);
     }
 
-    
+
     void Update()
     {
 
@@ -49,32 +50,40 @@ public class PlayerController : MonoBehaviour
 
         //CAmera Rotation system
 
-        //playerCam.transform.position = transform.position + cameraoffset;
-        cameraRotation.x += lookVector.ReadValue<Vector2>().x * Xsensitivity;
-        cameraRotation.y += lookVector.ReadValue<Vector2>().y * ysensitivity;
+        Quaternion playerRoatation = playerCam.transform.rotation;
+        playerRoatation.x = 0;
+        playerRoatation.z = 0;
+        transform.rotation = playerRoatation;
 
-        cameraRotation.y = Mathf.Clamp(cameraRotation.y, -cameraRotationLimit, cameraRotationLimit);
-
-        transform.localRotation = Quaternion.AngleAxis(cameraRotation.x, Vector3.up);
-        playerCam.rotation = Quaternion.Euler(-cameraRotation.y, cameraRotation.x, 0);
 
         //Movement System
 
         Vector3 temp = rb.linearVelocity;
         temp.x = verticalMove * speed;
         temp.z = horizontalMove * speed;
+
+        ray.origin = transform.position;
+        ray.direction = -transform.up;
         rb.linearVelocity = (temp.x * transform.forward) + (temp.y * transform.up) + (temp.z * transform.right);
 
 
-       
+
     }
 
     public void Move(InputAction.CallbackContext context)
     {
-        Vector2 inputAxis= context.ReadValue<Vector2>();
+        Vector2 inputAxis = context.ReadValue<Vector2>();
 
         verticalMove = inputAxis.y;
         horizontalMove = inputAxis.x;
+    }
+
+    public void Jump()
+    {
+
+    if (Physics.Raycast(ray, groundDetectLength))
+        rb.AddForce(transform.up* jumpHeight);
+       
     }
 
     private void OnTriggerEnter(Collider other)
