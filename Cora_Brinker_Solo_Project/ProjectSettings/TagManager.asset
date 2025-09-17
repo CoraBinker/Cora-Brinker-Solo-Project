@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - deathZone
+  - Health
+  - damage
+  - hazard
+  - Basic enemy
   layers:
   - Default
   - TransparentFX
