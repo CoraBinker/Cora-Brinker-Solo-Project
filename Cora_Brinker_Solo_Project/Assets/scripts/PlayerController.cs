@@ -99,14 +99,20 @@ public class PlayerController : MonoBehaviour
         if ((other.tag == "Health") && (health < maxHealth))
             health += 1;
         Destroy(other.gameObject);
+
    
+    
     }
 
+   
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "hazard")
             health -= 1;
+
+        if (collision.gameObject.tag == "Basic Enemy")
+            health -= 2;
     }
 
    
