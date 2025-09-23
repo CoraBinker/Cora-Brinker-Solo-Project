@@ -9,6 +9,8 @@ TagManager:
   - damage
   - hazard
   - Basic enemy
+  - PlayerFeild
+  - player
   layers:
   - Default
   - TransparentFX
