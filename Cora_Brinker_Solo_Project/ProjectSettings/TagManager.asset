@@ -11,6 +11,8 @@ TagManager:
   - Basic enemy
   - PlayerFeild
   - player
+  - proj
+  - weapon
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
     Camera playerCam;
     Rigidbody rb;
     Ray ray;
-    
+    Ray interactRay;
+    RaycastHit interactHit;
+    GameObject pickupObject;
 
 
 
@@ -24,6 +26,13 @@ public class PlayerController : MonoBehaviour
     public int health = 10;
     public int maxHealth = 15;
 
+    public PlayerInput input;
+    public Transform weaponSlot;
+    public Weapon currentWeapon;
+    public float interactionDistance = 1f;
+
+    public bool attacking = false;
+    
 
     public void Start()
     {
@@ -38,6 +47,8 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         Ray ray = new Ray(transform.position, transform.forward);
+        interactRay = new Ray(transform.position, transform.forward);
+        weaponSlot = transform.GetChild(0);
     }
 
 
@@ -66,6 +77,27 @@ public class PlayerController : MonoBehaviour
         ray.direction = -transform.up;
         rb.linearVelocity = (temp.x * transform.forward) + (temp.y * transform.up) + (temp.z * transform.right);
 
+        interactRay.origin = transform.position;
+        interactRay.direction = playerCam.transform.forward;
+
+        if (currentWeapon)
+            if (currentWeapon.holdToAttack && attacking)
+                currentWeapon.fire();
+
+        if (Physics.Raycast(interactRay, out interactHit, interactionDistance))
+        {
+            if (interactHit.collider.gameObject.tag == "weapon")
+            {
+                pickupObject = interactHit.collider.gameObject;
+
+                Debug.Log(interactHit.collider.gameObject);
+            }
+
+            Debug.Log(interactHit.collider.gameObject.tag);
+        }
+        else
+            pickupObject = null;
+
 
 
     }
@@ -84,6 +116,38 @@ public class PlayerController : MonoBehaviour
     if (Physics.Raycast(ray, groundDetectLength))
         rb.AddForce(transform.up* jumpHeight, ForceMode.Impulse);
        
+    }
+
+public void Attack(InputAction.CallbackContext context)
+    {
+        if (currentWeapon)
+        {
+            if (currentWeapon.holdToAttck)
+                if (context.ReadValueAsButton())
+                    attacking = true;
+                else
+                    attacking = false;
+        }
+    }
+
+    public void Interact()
+    {
+        if (pickupObject)
+        {
+            if (pickupObject.tag == "weapon")
+            {
+                pickupObject.GetComponent<Weapon>().equip(this);
+            }
+            else
+                Reload();
+        }
+    }
+
+
+    public void Reload()
+    {
+        if (currentWeapon)
+            currentWeapon.reload();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -115,6 +179,5 @@ public class PlayerController : MonoBehaviour
             health -= 2;
     }
 
-   
-   
+  
 }
