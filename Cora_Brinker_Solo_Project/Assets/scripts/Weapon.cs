@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     [Header("Meta Attributes")]
     public bool canFire = true;
     public bool holdToAttack = true;
+    public bool reloading = false;
     public int weaponID;
     public string weaponName;
 
@@ -44,7 +45,7 @@ public class Weapon : MonoBehaviour
 
     public void fire()
     {
-        if(canFire && clip > 0 && weaponID > -1)
+        if (canFire && !reloading && clip > 0 && weaponID > -1)
         {
             weaponSpeaker.Play();
             GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
@@ -77,7 +78,9 @@ public class Weapon : MonoBehaviour
                 ammo -= reloadCount;
             }
 
-            StartCoroutine("cooldownFire", reloadCooldown);
+            reloading = true;
+            canFire = false;
+            StartCoroutine("reloadCooldown");
             return;
         }
     }
@@ -99,7 +102,7 @@ public class Weapon : MonoBehaviour
     public void unequip()
     {
         player.currentWeapon = null;
-        
+
         transform.SetParent(null);
 
         GetComponent<Rigidbody>().isKinematic = false;
@@ -112,8 +115,16 @@ public class Weapon : MonoBehaviour
     IEnumerator cooldownFire(float cooldownTime)
     {
         yield return new WaitForSeconds(cooldownTime);
-        
+
         if(clip > 0)
             canFire = true;
+    }
+
+    IEnumerator reloadingCooldown()
+    {
+        yield return new WaitForSeconds(reloadCooldown);
+
+        reloading = false;
+        canFire = false;
     }
 }

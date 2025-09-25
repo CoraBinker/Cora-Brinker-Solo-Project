@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         ray.direction = -transform.up;
         rb.linearVelocity = (temp.x * transform.forward) + (temp.y * transform.up) + (temp.z * transform.right);
 
-        interactRay.origin = transform.position;
+        interactRay.origin = playerCam.transform.position;
         interactRay.direction = playerCam.transform.forward;
 
         if (currentWeapon)
@@ -89,11 +89,7 @@ public class PlayerController : MonoBehaviour
             if (interactHit.collider.gameObject.tag == "weapon")
             {
                 pickupObject = interactHit.collider.gameObject;
-
-                Debug.Log(interactHit.collider.gameObject);
             }
-
-            Debug.Log(interactHit.collider.gameObject.tag);
         }
         else
             pickupObject = null;
@@ -118,6 +114,16 @@ public class PlayerController : MonoBehaviour
        
     }
 
+    public void fireModeSwitch()
+    {
+        if (currentWeapon.weaponID == 1)
+        {
+
+        }
+
+
+    }
+
 public void Attack(InputAction.CallbackContext context)
     {
         if (currentWeapon)
@@ -137,6 +143,8 @@ public void Attack(InputAction.CallbackContext context)
             if (pickupObject.tag == "weapon")
             {
                 pickupObject.GetComponent<Weapon>().equip(this);
+
+                pickupObject = null;
             }
             else
                 Reload();
@@ -147,7 +155,16 @@ public void Attack(InputAction.CallbackContext context)
     public void Reload()
     {
         if (currentWeapon)
-            currentWeapon.reload();
+           if (!currentWeapon.reloading)
+                currentWeapon.reload();
+    }
+
+    public void DropWeapon()
+    {
+         if (currentWeapon)
+        {
+            currentWeapon.GetComponent<Weapon>().unequip();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -164,8 +181,9 @@ public void Attack(InputAction.CallbackContext context)
             health += 1;
         Destroy(other.gameObject);
 
-   
-    
+        if (gameObject.tag == "Basic Enemy")
+            health -= 2;
+
     }
 
    
@@ -174,9 +192,6 @@ public void Attack(InputAction.CallbackContext context)
     {
         if (collision.gameObject.tag == "hazard")
             health -= 1;
-
-        if (collision.gameObject.tag == "Basic Enemy")
-            health -= 2;
     }
 
   

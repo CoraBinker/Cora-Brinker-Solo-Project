@@ -7,7 +7,6 @@ public class basicenemycontrol: MonoBehaviour
     NavMeshAgent agent;
     Vector3 explosionPosition;
 
-    public float enemyBulletSpeed = 10f;
     public float enemyHealth = 7f;
     public float blastRadius = 3f;
     public float blastPower = 5f;
