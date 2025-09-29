@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if ((bool)player.health = 0)
+        if (player.health = 0)
         {
             gameOverScreen();
         }
