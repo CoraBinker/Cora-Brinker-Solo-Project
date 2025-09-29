@@ -114,15 +114,7 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    public void fireModeSwitch()
-    {
-        if (currentWeapon.weaponID == 1)
-        {
-
-        }
-
-
-    }
+   
 
 public void Attack(InputAction.CallbackContext context)
     {
@@ -181,7 +173,7 @@ public void Attack(InputAction.CallbackContext context)
             health += 1;
         Destroy(other.gameObject);
 
-        if (gameObject.tag == "Basic Enemy")
+        if (gameObject.tag == "Basic enemy") 
             health -= 2;
 
     }

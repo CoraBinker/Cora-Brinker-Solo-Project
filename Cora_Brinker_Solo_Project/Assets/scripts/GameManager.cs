@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     Image healthBar;
 
     GameObject pauseMenu;
+
     public bool isPaused = false;
 
     void Start()
@@ -20,15 +21,21 @@ public class GameManager : MonoBehaviour
          player = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
         healthBar = GameObject.FindGameObjectWithTag("ui_health").GetComponent<Image>();
 
-        pauseMenu = GameObject.FindGameObjectWithTag("pause");
+        pauseMenu = GameObject.FindGameObjectWithTag("Pause_menu");
         pauseMenu.SetActive(false);
         } 
     }
 
     void Update()
     {
+        if ((bool)player.health = 0)
+        {
+            gameOverScreen();
+        }
+
         if (SceneManager.GetActiveScene().buildIndex>=1)
-        healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
+            healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
+
     }
 
     public void Pause()
@@ -53,8 +60,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        SceneManager.LoadScene(level);
         Time.timeScale = 1;
+        SceneManager.LoadScene(level);
     }
 
     public void MainMenu()
@@ -80,7 +87,8 @@ public class GameManager : MonoBehaviour
 
     public void gameOverScreen()
     {
-      
+            LoadLevel(2);
+       
     }
       
    
