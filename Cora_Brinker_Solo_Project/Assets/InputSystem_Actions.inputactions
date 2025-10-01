@@ -493,11 +493,11 @@
                 },
                 {
                     "name": "",
-                    "id": "3d7f7886-deaa-42fa-b17e-38da32bea5d4",
+                    "id": "dffd5aa2-583b-4f4a-97fa-b6b5341a02dc",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false

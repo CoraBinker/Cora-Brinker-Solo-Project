@@ -94,9 +94,17 @@ public class PlayerController : MonoBehaviour
         else
             pickupObject = null;
 
+        if (health == 0)
+        {
+            SceneManager.LoadScene(2);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
 
 
-    }
+	}
+    
+    
 
     public void Move(InputAction.CallbackContext context)
     {
@@ -185,6 +193,5 @@ public void Attack(InputAction.CallbackContext context)
         if (collision.gameObject.tag == "hazard")
             health -= 1;
     }
-
-  
+    
 }

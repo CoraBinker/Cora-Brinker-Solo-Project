@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex >= 1)
         { 
 
-         player = GameObject.FindGameObjectWithTag("player").GetComponent<PlayerController>();
+         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         healthBar = GameObject.FindGameObjectWithTag("ui_health").GetComponent<Image>();
 
         pauseMenu = GameObject.FindGameObjectWithTag("Pause_menu");
@@ -28,10 +28,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (player.health = 0)
-        {
-            gameOverScreen();
-        }
 
         if (SceneManager.GetActiveScene().buildIndex>=1)
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
@@ -83,13 +79,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
-    public void gameOverScreen()
-    {
-            LoadLevel(2);
-       
-    }
       
    
 }
