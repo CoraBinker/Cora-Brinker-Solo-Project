@@ -29,8 +29,6 @@ public class Weapon : MonoBehaviour
     public int clip;
     public int clipSize;
 
-    public bool holdToAttck = true;
-
     [Header("Ammo Stats")]
     public int ammo;
     public int maxAmmo;
@@ -80,7 +78,7 @@ public class Weapon : MonoBehaviour
 
             reloading = true;
             canFire = false;
-            StartCoroutine("reloadCooldown");
+            StartCoroutine("reloadingCooldown");
             return;
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class basicenemycontrol: MonoBehaviour
 {
-
+    public GameObject healthPickup;
     NavMeshAgent agent;
     Vector3 explosionPosition;
 
@@ -15,7 +15,7 @@ public class basicenemycontrol: MonoBehaviour
     {
    
         agent = GetComponent<NavMeshAgent>();
-      
+  
     }
 
 
@@ -24,7 +24,7 @@ public class basicenemycontrol: MonoBehaviour
         agent.destination = GameObject.Find("Player").transform.position;
 
         if (enemyHealth <= 0)
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 5f);
             // blow up
      
     }
@@ -34,7 +34,13 @@ public class basicenemycontrol: MonoBehaviour
         if (collider.tag=="player")
         {}
 
-        // Blow up, then: Destroy(gameObject, 2f);
+        // Blow up, then: Destroy(gameObject, 5f);
+
+         if (collider.tag =="Health.Proj")
+        {
+            Instantiate(healthPickup, collider.transform.position, collider.transform.rotation);
+            Destroy(collider.gameObject);
+        }
 
     }
 
@@ -46,5 +52,9 @@ public class basicenemycontrol: MonoBehaviour
 
         if (collision.gameObject.tag == "MachinegunBullet")
             enemyHealth -= 3;
+
+
     }
+
+
 }

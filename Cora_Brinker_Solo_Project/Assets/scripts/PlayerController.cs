@@ -128,11 +128,16 @@ public void Attack(InputAction.CallbackContext context)
     {
         if (currentWeapon)
         {
-            if (currentWeapon.holdToAttck)
+            if (currentWeapon.holdToAttack)
+            {
                 if (context.ReadValueAsButton())
                     attacking = true;
                 else
                     attacking = false;
+            }
+
+            else
+                currentWeapon.fire();
         }
     }
 
@@ -181,7 +186,7 @@ public void Attack(InputAction.CallbackContext context)
             health += 1;
         Destroy(other.gameObject);
 
-        if (gameObject.tag == "Basic enemy") 
+        if ((gameObject.tag == "Basic enemy")  && (health > 0))
             health -= 2;
 
     }
