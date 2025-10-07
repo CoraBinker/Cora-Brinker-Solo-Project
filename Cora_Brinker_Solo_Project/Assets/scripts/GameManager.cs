@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     GameObject pauseMenu;
 
     public bool isPaused = false;
+
+    public bool canSpawn = true;
 
     void Start()
     {
@@ -79,6 +82,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-      
-   
+    IEnumerator enemywave2Cooldown()
+    {
+        yield return new WaitForSeconds(5f);
+        canSpawn = true;
+        // Do the thing here
+    }
+
+
 }

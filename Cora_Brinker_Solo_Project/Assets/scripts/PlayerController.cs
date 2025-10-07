@@ -186,7 +186,7 @@ public void Attack(InputAction.CallbackContext context)
             health += 1;
         Destroy(other.gameObject);
 
-        if ((gameObject.tag == "Basic enemy")  && (health > 0))
+        if ((other.tag == "Basic enemy")  && (health > 0))
             health -= 2;
 
     }

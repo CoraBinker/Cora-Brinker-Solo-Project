@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +14,6 @@ public class basicenemycontrol: MonoBehaviour
 
     void Start()
     {
-   
         agent = GetComponent<NavMeshAgent>();
   
     }
@@ -40,6 +40,7 @@ public class basicenemycontrol: MonoBehaviour
         {
             Instantiate(healthPickup, collider.transform.position, collider.transform.rotation);
             Destroy(collider.gameObject);
+            Destroy(gameObject);
         }
 
     }
@@ -53,8 +54,13 @@ public class basicenemycontrol: MonoBehaviour
         if (collision.gameObject.tag == "MachinegunBullet")
             enemyHealth -= 3;
 
-
     }
+
+    public bool canSpawn = true;
+
+    // Assume that the spawner sets canSpawn = false;
+
+   
 
 
 }

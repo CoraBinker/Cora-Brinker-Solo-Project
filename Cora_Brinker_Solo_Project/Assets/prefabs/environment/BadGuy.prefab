@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1679556f15b770542adafb56dfbf650c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPickup: {fileID: 7465962926071630914, guid: ef2b56e3fc9909241947d4c00c9ce8fc, type: 3}
   enemyHealth: 7
   blastRadius: 3
   blastPower: 5
