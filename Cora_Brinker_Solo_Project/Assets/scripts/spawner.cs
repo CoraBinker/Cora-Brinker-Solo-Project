@@ -21,18 +21,12 @@ public class spawner : MonoBehaviour
         {
             Instantiate(BadGuy, transform.position, transform.rotation);
             IsSpawning = true;
-            StartCoroutine("enemywaves");
+            StartCoroutine("spawnercooldown");
         }
     }
-    IEnumerator enemywaves()
-    {
-        yield return new WaitForSeconds(30f);
-        canSpawn = true;
-    }
-
     IEnumerator spawnercooldown()
     {
-        yield return  new WaitForSeconds ()
+        yield return new WaitForSeconds(30f);
     }
 
 

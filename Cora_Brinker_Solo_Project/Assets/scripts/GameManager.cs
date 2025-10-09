@@ -18,8 +18,22 @@ public class GameManager : MonoBehaviour
 
     public bool canSpawn = true;
 
+    public int enemyNumber = 4;
+
     void Start()
     {
+        if (enemyNumber <= 1)
+        {
+            canSpawn = false;
+        }
+
+        if (enemyNumber >= 1)
+        {
+            canSpawn = true;
+        }
+
+
+
         if (SceneManager.GetActiveScene().buildIndex >= 1)
         { 
 
@@ -47,6 +61,7 @@ public class GameManager : MonoBehaviour
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
 
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -72,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void resume()
     {
-         if (isPaused)
+        if (isPaused)
         {
             isPaused = false;
             pauseMenu.SetActive(false);
@@ -82,12 +97,6 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-    }
-
-    IEnumerator enemywave2()
-    {
-        yield return new WaitForSeconds(30f);
-        canSpawn = true;
     }
 
 
