@@ -14,7 +14,7 @@ public class basicenemycontrol: MonoBehaviour
     public float enemyHealth = 7f;
     public float blastRadius = 3f;
     public float blastPower = 5f;
-    public float enemyNumber = 4f;
+    public int enemyNumber = 4;
     public bool canSpawn = true;
     
     void Start()
@@ -29,8 +29,10 @@ public class basicenemycontrol: MonoBehaviour
         agent.destination = GameObject.Find("Player").transform.position;
 
         if (enemyHealth <= 0)
+        {
             Destroy(gameObject, 5f);
             // blow up
+        }
      
     }
 
@@ -59,4 +61,6 @@ public class basicenemycontrol: MonoBehaviour
             enemyHealth -= 3;
 
     }
+
+
 }
