@@ -1,21 +1,26 @@
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEditor.Analytics;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class basicenemycontrol: MonoBehaviour
 {
     public GameObject healthPickup;
+    public GameObject BadGuy;
     NavMeshAgent agent;
     Vector3 explosionPosition;
 
     public float enemyHealth = 7f;
     public float blastRadius = 3f;
     public float blastPower = 5f;
-
+    public float enemyNumber = 4f;
+    public bool canSpawn = true;
+    
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-  
+
     }
 
 
@@ -40,7 +45,6 @@ public class basicenemycontrol: MonoBehaviour
         {
             Instantiate(healthPickup, collider.transform.position, collider.transform.rotation);
             Destroy(collider.gameObject);
-            Destroy(gameObject);
         }
 
     }
@@ -55,12 +59,4 @@ public class basicenemycontrol: MonoBehaviour
             enemyHealth -= 3;
 
     }
-
-    public bool canSpawn = true;
-
-    // Assume that the spawner sets canSpawn = false;
-
-   
-
-
 }

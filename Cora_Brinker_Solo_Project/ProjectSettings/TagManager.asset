@@ -18,6 +18,7 @@ TagManager:
   - ui_health
   - Pause_menu
   - Health.Proj
+  - game manager
   layers:
   - Default
   - TransparentFX

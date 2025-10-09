@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     PlayerController player;
 
+    basicenemycontrol BadGuy;
+
     Image healthBar;
 
     GameObject pauseMenu;
@@ -82,11 +84,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator enemywave2Cooldown()
+    IEnumerator enemywave2()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(30f);
         canSpawn = true;
-        // Do the thing here
     }
 
 
