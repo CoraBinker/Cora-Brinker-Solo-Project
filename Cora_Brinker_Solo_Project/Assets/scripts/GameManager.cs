@@ -16,23 +16,29 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
-    public bool canSpawn = true;
+    public bool canSpawn = false;
+
+    public bool isHoldingKey = false;
 
     public int enemyNumber = 4;
 
+
     void Start()
     {
-        if (enemyNumber <= 1)
+        if (enemyNumber>=1)
         {
             canSpawn = false;
         }
 
-        if (enemyNumber >= 1)
+        if (enemyNumber <1)
         {
             canSpawn = true;
         }
 
-
+        if (isHoldingKey == true)
+        {
+            canSpawn = false;
+        }
 
         if (SceneManager.GetActiveScene().buildIndex >= 1)
         { 

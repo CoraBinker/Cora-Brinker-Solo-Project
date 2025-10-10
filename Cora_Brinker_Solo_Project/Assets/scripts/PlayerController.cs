@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     Ray interactRay;
     RaycastHit interactHit;
     GameObject pickupObject;
+    GameManager gm;
 
 
 
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public void Start()
     {
-
+        gm = GameObject.FindGameObjectWithTag("game manager").GetComponent<GameManager>();
         cameraoffset = new Vector3(0, .5f, .5f);
         rb = GetComponent<Rigidbody>();
         playerCam = Camera.main;
@@ -189,14 +190,24 @@ public void Attack(InputAction.CallbackContext context)
         if ((other.tag == "Basic enemy")  && (health > 0))
             health -= 2;
 
+        if (other.tag =="spawnerKey")
+        {
+            gm.isHoldingKey = true;
+            Destroy(other.gameObject);
+        }
     }
 
-   
+
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "hazard")
             health -= 1;
+
+        if (collision.gameObject.tag == "key")
+        { 
+            gm.isHoldingKey = true;
+        }
     }
     
 }

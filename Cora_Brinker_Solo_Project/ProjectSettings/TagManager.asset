@@ -19,6 +19,8 @@ TagManager:
   - Pause_menu
   - Health.Proj
   - game manager
+  - spawnerKey
+  - spawner
   layers:
   - Default
   - TransparentFX

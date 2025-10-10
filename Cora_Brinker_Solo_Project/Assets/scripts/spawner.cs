@@ -17,7 +17,7 @@ public class spawner : MonoBehaviour
     }
     void Update()
     {
-     if (IsSpawning && GameManager.canSpawn)
+     if(GameManager.canSpawn == true)
         {
             Instantiate(BadGuy, transform.position, transform.rotation);
             IsSpawning = true;
@@ -26,7 +26,8 @@ public class spawner : MonoBehaviour
     }
     IEnumerator spawnercooldown()
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(20f);
+        IsSpawning = false;
     }
 
 
