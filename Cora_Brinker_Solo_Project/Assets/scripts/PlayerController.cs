@@ -204,10 +204,6 @@ public void Attack(InputAction.CallbackContext context)
         if (collision.gameObject.tag == "hazard")
             health -= 1;
 
-        if (collision.gameObject.tag == "key")
-        { 
-            gm.isHoldingKey = true;
-        }
     }
     
 }

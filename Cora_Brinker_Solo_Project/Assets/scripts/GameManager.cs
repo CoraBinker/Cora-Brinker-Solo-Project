@@ -20,26 +20,12 @@ public class GameManager : MonoBehaviour
 
     public bool isHoldingKey = false;
 
-    public int enemyNumber = 4;
-
+    public int enemyNumber;
+    
 
     void Start()
     {
-        if (enemyNumber>=1)
-        {
-            canSpawn = false;
-        }
-
-        if (enemyNumber <1)
-        {
-            canSpawn = true;
-        }
-
-        if (isHoldingKey == true)
-        {
-            canSpawn = false;
-        }
-
+       
         if (SceneManager.GetActiveScene().buildIndex >= 1)
         { 
 
@@ -48,14 +34,34 @@ public class GameManager : MonoBehaviour
 
         pauseMenu = GameObject.FindGameObjectWithTag("Pause_menu");
         pauseMenu.SetActive(false);
+
+         
         } 
     }
 
     void Update()
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Basic enemy");
+        int enemyNumber = enemies.Length;
+        Debug.Log("Number of objects with tag 'basic enemy':" + enemyNumber);
 
         if (SceneManager.GetActiveScene().buildIndex>=1)
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
+
+        if (enemyNumber >= 1)
+        {
+            canSpawn = false;
+        }
+
+        if (enemyNumber < 1)
+        {
+            canSpawn = true;
+        }
+
+        if (isHoldingKey == true)
+        {
+            canSpawn = false;
+        }
 
     }
 
