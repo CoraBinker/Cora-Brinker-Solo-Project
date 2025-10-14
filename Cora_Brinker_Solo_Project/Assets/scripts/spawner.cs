@@ -7,26 +7,29 @@ public class spawner : MonoBehaviour
 
     public GameObject BadGuy;
 
-    public float SpawnerCooldown = 20f;
+    public bool spawning = false;
+
+    public float spawnWait;
 
     void Start()
     {
-        GameManager.canSpawn = false;
 
         GameManager = GameObject.FindGameObjectWithTag("game manager").GetComponent<GameManager>();
     }
     void Update()
     {
-     if(GameManager.canSpawn == true)
+     if(!spawning && GameManager.canSpawn)
         {
+            spawning = true;
             Instantiate(BadGuy, transform.position, transform.rotation);
+            GameManager.enemiesSpawned++;
             StartCoroutine("spawnercooldown");
         }
     }
     IEnumerator spawnercooldown()
     {
-        yield return new WaitForSeconds(20f);
-        GameManager.canSpawn = false;
+        yield return new WaitForSeconds(spawnWait);
+        spawning = false;
     }
 
 

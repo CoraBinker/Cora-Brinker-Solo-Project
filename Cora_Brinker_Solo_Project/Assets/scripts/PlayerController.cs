@@ -189,12 +189,6 @@ public void Attack(InputAction.CallbackContext context)
 
         if ((other.tag == "Basic enemy")  && (health > 0))
             health -= 2;
-
-        if (other.tag =="spawnerKey")
-        {
-            gm.isHoldingKey = true;
-            Destroy(other.gameObject);
-        }
     }
 
 
