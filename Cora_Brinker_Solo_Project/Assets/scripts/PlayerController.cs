@@ -184,8 +184,10 @@ public void Attack(InputAction.CallbackContext context)
         // Hea lth and Damage system
 
         if ((other.tag == "Health") && (health < maxHealth))
+        {
             health += 1;
-        Destroy(other.gameObject);
+            Destroy(other.gameObject);
+        }
 
         if ((other.tag == "Basic enemy")  && (health > 0))
             health -= 2;

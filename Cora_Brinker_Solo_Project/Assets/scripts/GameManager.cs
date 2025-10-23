@@ -16,11 +16,13 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
 
-    public bool canSpawn = false;
+    public bool canSpawn = true;
 
-    public bool isHoldingKey = false;
+    public int enemyPool = 10;
 
-    public int enemyNumber;
+    public int enemiesSpawned = 0;
+
+
     
 
     void Start()
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
         pauseMenu = GameObject.FindGameObjectWithTag("Pause_menu");
         pauseMenu.SetActive(false);
 
-         
+            enemiesSpawned = 1;
         } 
     }
 
@@ -48,17 +50,8 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex>=1)
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
 
-        if (enemyNumber >= 1)
-        {
-            canSpawn = false;
-        }
 
-        if (enemyNumber < 1)
-        {
-            canSpawn = true;
-        }
-
-        if (isHoldingKey == true)
+        if (enemiesSpawned>=enemyPool)
         {
             canSpawn = false;
         }
