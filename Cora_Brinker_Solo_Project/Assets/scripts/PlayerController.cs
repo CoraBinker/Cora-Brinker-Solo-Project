@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -190,7 +191,12 @@ public void Attack(InputAction.CallbackContext context)
         }
 
         if ((other.tag == "Basic enemy")  && (health > 0))
+        {
             health -= 2;
+            Destroy(other.gameObject);
+        }
+            
+
     }
 
 
