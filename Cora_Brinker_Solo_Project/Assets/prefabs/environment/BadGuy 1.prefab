@@ -481,7 +481,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.9
-  m_Speed: 2
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -527,8 +527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPickup: {fileID: 1087639513035598760, guid: 82dd90992bca081439768f47a3cd5845, type: 3}
-  BadGuy: {fileID: 0}
-  enemyHealth: 7
+  BadGuy: {fileID: 3083181748190309206}
+  enemyHealth: 4
   blastRadius: 3
   blastPower: 5
   enemyNumber: 4
