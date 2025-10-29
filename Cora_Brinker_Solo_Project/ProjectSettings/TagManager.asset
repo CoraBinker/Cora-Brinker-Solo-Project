@@ -21,6 +21,7 @@ TagManager:
   - game manager
   - spawnerKey
   - spawner
+  - LevelGate
   layers:
   - Default
   - TransparentFX

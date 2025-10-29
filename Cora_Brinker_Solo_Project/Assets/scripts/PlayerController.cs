@@ -195,7 +195,23 @@ public void Attack(InputAction.CallbackContext context)
             health -= 2;
             Destroy(other.gameObject);
         }
+
+        if ((other.tag == "LevelGate") & (gm.canSpawn==true))
+        {
+            gm.LoadLevel(2);
+        }
             
+        if (other.tag == "spawnerKey")
+        {
+            gm.canSpawn = false;
+            Destroy(other.gameObject);
+
+        }
+
+        if ((other.tag == "LevelGate") & (gm.canSpawn == false))
+        {
+            gm.LoadLevel(3);
+        }
 
     }
 

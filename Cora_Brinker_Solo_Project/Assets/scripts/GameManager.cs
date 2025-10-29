@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(level);
     }
-
+       
     public void MainMenu()
     {
         LoadLevel(0);
